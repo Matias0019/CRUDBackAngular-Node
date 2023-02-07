@@ -40,16 +40,15 @@ export const deleteProduct = async (req: Request, res: Response) => {
 export const saveProduct = async (req: Request, res: Response) => {
     const { body } = req;
     try{
+        console.log(req.body);
         await Product.create(body);
 
         res.json({
             msg: 'El product fue agregado con exito!'
         })
     } catch(error) {
-        console.log(error);
-        res.json({
-            msg: 'Ocurrio un error!'
-        })
+        
+        return res.status(500).json({ message: "Internal Server Error"});
     }
     
 }

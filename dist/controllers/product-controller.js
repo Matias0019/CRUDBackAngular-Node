@@ -51,16 +51,14 @@ exports.deleteProduct = deleteProduct;
 const saveProduct = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { body } = req;
     try {
+        console.log(req.body);
         yield product_model_1.default.create(body);
         res.json({
             msg: 'El product fue agregado con exito!'
         });
     }
     catch (error) {
-        console.log(error);
-        res.json({
-            msg: 'Ocurrio un error!'
-        });
+        return res.status(500).json({ message: "Internal Server Error" });
     }
 });
 exports.saveProduct = saveProduct;

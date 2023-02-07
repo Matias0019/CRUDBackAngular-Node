@@ -2,10 +2,13 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
 const product_controller_1 = require("../controllers/product-controller");
+const schemaValidator_middleware_1 = require("../middlewares/schemaValidator.middleware");
+const product_schema_1 = require("../schemas/product.schema");
 const router = (0, express_1.Router)();
 router.get('/', product_controller_1.getProducts);
 router.get('/:id', product_controller_1.getProduct);
 router.delete('/:id', product_controller_1.deleteProduct);
-router.post('/', product_controller_1.saveProduct);
-router.put('/:id', product_controller_1.updateProduct);
+// router.post('/', schemaValidation(createProductSchema), saveProduct);
+router.put('/:id', (0, schemaValidator_middleware_1.schemaValidation)(product_schema_1.updateProductSchema), product_controller_1.updateProduct);
+router.post('/', schemaValidator_middleware_1.validatorUser, product_controller_1.saveProduct);
 exports.default = router;
